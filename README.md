@@ -2,4 +2,5 @@
 
 ## Team members
 - Mohamed Elansari me2209852@qu.edu.qa
+- Ali Ghazi ag2209865@qu.edu.qa
 - 
