@@ -45,5 +45,9 @@ Where:
 
 This formulation encourages the agent to drive at higher speeds while penalizing collisions, promoting efficient and safe driving behavior.
 
-### **Customization and Extensions**
-The environment offers extensive configurability, allowing adjustments to parameters such as the number of lanes, vehicle density, and observation features. This flexibility enables experimentation with different traffic scenarios and agent behaviors.
+### **Deliverables**
+- **Codebase**: A complete implementation of the agent and environment interaction logic using the `highway-env` library. The code will be modular and well-documented for reproducibility.
+- **Training Results**: Plots and visualizations of key performance metrics (reward progression, collision rate, average speed) across training episodes.
+- **Parameter Exploration**: Experiments comparing the effects of different reward weightings (`a`, `b`), learning algorithms, and environment configurations.
+- **Final Report**: A detailed document summarizing methodology, implementation, experiments, results, and analysis.
+- **Presentation**: A visual presentation highlighting the project objectives, techniques used, key findings, and demo runs of the trained agent.
