@@ -49,4 +49,4 @@ This formulation encourages the agent to drive at higher speeds while penalizing
 ### **Customization and Extensions**
 The environment offers extensive configurability, allowing adjustments to parameters such as the number of lanes, vehicle density, and observation features. This flexibility enables experimentation with different traffic scenarios and agent behaviors.
 
-
+$\sqrt{3x-1}+(1+x)^2$
