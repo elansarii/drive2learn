@@ -30,23 +30,19 @@ These meta-actions simplify the control strategy by allowing the agent to focus 
 
 ### **Reward Function**
 The reward function is designed to balance the trade-off between maintaining high speed and avoiding collisions. It is defined as:
-$
-R(s, a) = a \cdot \frac{v - v_{\min}}{v_{\max} - v_{\min}} - b \cdot \text{collision}
 
-$
+$R(s, a) = a \cdot \frac{v - v_{\min}}{v_{\max} - v_{\min}} - b \cdot \text{collision}$
+
 Where:
-$
-\begin{aligned}
+
+$\begin{aligned}
 v & : \text{ current speed of the ego-vehicle} \\
 v_{\min}, v_{\max} & : \text{ minimum and maximum speeds for normalization} \\
 \text{collision} & : \text{ binary indicator (1 = collision, 0 = no collision)} \\
 a, b & : \text{ weighting coefficients (speed, safety)}
-\end{aligned}
-$
+\end{aligned}$
 
 This formulation encourages the agent to drive at higher speeds while penalizing collisions, promoting efficient and safe driving behavior.
 
 ### **Customization and Extensions**
 The environment offers extensive configurability, allowing adjustments to parameters such as the number of lanes, vehicle density, and observation features. This flexibility enables experimentation with different traffic scenarios and agent behaviors.
-
-$\sqrt{3x-1}+(1+x)^2$
