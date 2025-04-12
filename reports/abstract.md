@@ -32,10 +32,10 @@ These meta-actions simplify the control strategy by allowing the agent to focus 
 The reward function is designed to balance the trade-off between maintaining high speed and avoiding collisions. It is defined as:
 $
 R(s, a) = a \cdot \frac{v - v_{\min}}{v_{\max} - v_{\min}} - b \cdot \text{collision}
-$
+
 $
 Where:
-$$
+$
 \begin{aligned}
 v & : \text{ current speed of the ego-vehicle} \\
 v_{\min}, v_{\max} & : \text{ minimum and maximum speeds for normalization} \\
