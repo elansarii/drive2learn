@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 def calculateTTC(d, v):
+    #comment
     return d/v
 
 def calculateHeading(vy):
