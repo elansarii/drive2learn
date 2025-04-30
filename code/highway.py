@@ -113,26 +113,17 @@ class CustomHighwayObs(gym.Wrapper):
                 lane_index = np.clip(round(y_pos / 0.04), -2, 2)
                 # 0 same lane, 1 immediate right, 2 Far right etc
                 
-                # Getting the heading
-                y_speed = round(car_obs[4], 4)
-                if y_speed > 0:
-                    heading = 1
-                elif y_speed < 0:
-                    heading = -1
-                else:
-                    heading = 0
             else:
                 # Default values if car isnt on screen
                 ttc_bin = 3
                 lane_index = 0
-                heading = 0
 
-            new_obs.append((ttc_bin, lane_index, heading))
+            new_obs.append((ttc_bin, lane_index))
         return new_obs
     
 def train(method, num_episodes = 40_000, alpha = 0.1, gamma = 0.9, epsilon_start = 0.8, epsilon_decay = 0.9999, epsilon_min = 0.1, showProgress = False):             
     env = gym.make(
-        'highway-v0', 
+        'highway-fast-v0', 
         render_mode='rgb_array', 
         config = {
         "observation": {
@@ -165,7 +156,7 @@ def train(method, num_episodes = 40_000, alpha = 0.1, gamma = 0.9, epsilon_start
         done = False
 
         # Episode Start
-        while not done or steps <= max_steps:
+        while not done and steps <= max_steps:
             next_state, reward, terminated, truncated, _ = env.step(action)
             next_action = agent.getAction(next_state)
             done = terminated or truncated
@@ -186,7 +177,7 @@ def train(method, num_episodes = 40_000, alpha = 0.1, gamma = 0.9, epsilon_start
     env.close()
     return smoothed_rewards, env, agent
 
-smoothed,  env, agent = train("Q", num_episodes=100, showProgress=True)
+smoothed,  env, agent = train("Q", num_episodes=1_000, showProgress=True)
 
 state = env.reset()[0]
 for _ in range(1000):
