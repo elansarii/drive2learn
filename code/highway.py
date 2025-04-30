@@ -1,3 +1,4 @@
+from collections import defaultdict
 import gymnasium as gym
 import highway_env
 import highway_env.envs
@@ -16,26 +17,25 @@ class HighwayAgent:
         self.epsilon_decay = epsilon_decay
         self.epsilon_min = epsilon_min
         
-        self.q_values = {}
+        self.q_values = defaultdict(lambda: np.zeros(env.action_space.n))
     
     def getAction(self, state, isOptimal = False):  # isOptimal = True, in case you want completely greedy (usually used in testing)
-        q_values =  self.q_values + self.q_values2 if self.method == 'Double Q' else self.q_values
         if np.random.rand() > self.epsilon or isOptimal:
-            return np.argmax(q_values[state])
+            return np.argmax(self.q_values[state])
         else:
             return self.env.action_space.sample()
             
         
     def update(self, state, action, reward, next_state, next_action, done):
         if self.method == 'SARSA':
-            self.q_values[state, action] += self.alpha * (reward + self.gamma * self.q_values[next_state, next_action] * (not done) - self.q_values[state, action]) 
+            self.q_values[state][action] += self.alpha * (reward + self.gamma * self.q_values[next_state][next_action] * (not done) - self.q_values[state][action]) 
 
         elif self.method == 'Expected SARSA':
             action_prob = np.ones(self.env.action_space.n) * (self.epsilon / self.env.action_space.n)
             best_action = self.getAction(next_state, True)
             action_prob[best_action] += (1 - self.epsilon)
             expected =  np.dot(action_prob, self.q_values[next_state])
-            self.q_values[state, action] += self.alpha * (reward + self.gamma * expected * (not done) - self.q_values[state, action])
+            self.q_values[state][action] += self.alpha * (reward + self.gamma * expected * (not done) - self.q_values[state][action])
         
         elif self.method == 'Q':
             self.q_values[state, action] += self.alpha * (reward + self.gamma * np.max(self.q_values[next_state]) * (not done) - self.q_values[state, action])
@@ -58,14 +58,13 @@ class CustomHighwayObs(gym.Wrapper):
 
     def reset(self, **kwargs):
             obs, info = self.env.reset(**kwargs)
-            modified_obs = self.cont2discrete(obs)
+            modified_obs = tuple(self.cont2discrete(obs))
             return modified_obs, info
 
     def step(self, action):
         # Original environment step function, obs is kinematics and absoulte
         obs, reward, terminated, truncated, info = self.env.step(action)
-        # print("raw = ",obs)
-        modified_obs = self.cont2discrete(obs)
+        modified_obs = tuple(self.cont2discrete(obs))
 
         return modified_obs, reward, terminated, truncated, info
     
@@ -82,7 +81,7 @@ class CustomHighwayObs(gym.Wrapper):
         For vy, positve is going down, negative is going up
         '''
         temp = obs[1:]
-        new_obs = np.zeros((temp.shape[0], 3))
+        new_obs = []
         ego_obs = obs[0]
         for index, car_obs in enumerate(temp):
             if car_obs[0] > 0:
@@ -128,7 +127,7 @@ class CustomHighwayObs(gym.Wrapper):
                 lane_index = 0
                 heading = 0
 
-            new_obs[index] = [ttc_bin, lane_index, heading]
+            new_obs.append((ttc_bin, lane_index, heading))
         return new_obs
     
 def train(method, num_episodes = 40_000, alpha = 0.1, gamma = 0.9, epsilon_start = 0.8, epsilon_decay = 0.9999, epsilon_min = 0.1, showProgress = False):             
@@ -155,18 +154,18 @@ def train(method, num_episodes = 40_000, alpha = 0.1, gamma = 0.9, epsilon_start
     env = CustomHighwayObs(env)
 
     agent = HighwayAgent(method, env, alpha, gamma, epsilon_start, epsilon_decay, epsilon_min)
-
+    max_steps = 10
     episode_rewards = []
     smoothed_rewards = []
     window = 1000
     for episode in range(num_episodes):
         state = env.reset()[0]
         action = agent.getAction(state)
-        total_reward = 0
+        total_reward = steps = 0
         done = False
 
         # Episode Start
-        while not done:
+        while not done or steps <= max_steps:
             next_state, reward, terminated, truncated, _ = env.step(action)
             next_action = agent.getAction(next_state)
             done = terminated or truncated
@@ -176,6 +175,7 @@ def train(method, num_episodes = 40_000, alpha = 0.1, gamma = 0.9, epsilon_start
 
             action = next_action
             state =  next_state
+            steps += 1
         # Episode end
         
         episode_rewards.append(total_reward)
@@ -185,3 +185,12 @@ def train(method, num_episodes = 40_000, alpha = 0.1, gamma = 0.9, epsilon_start
             print(f'\r{method}: {int(episode/num_episodes*100)}%', end='', flush=True)
     env.close()
     return smoothed_rewards, env, agent
+
+smoothed,  env, agent = train("Q", num_episodes=100, showProgress=True)
+
+state = env.reset()[0]
+for _ in range(1000):
+    action = agent.getAction(state, True)
+    state, reward, done, truncated, info = env.step(action)
+    env.render()
+plt.imshow(env.render())
