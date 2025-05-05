@@ -87,12 +87,20 @@ env = gym.make(
         'highway-fast-v0',  
         config = {
         "observation": {
-            "type": "TimeToCollision",
+            "type": "Kinematic",
+            "features": ["presence","x", "y", "vx", "vy"],
+            "features_range": {
+                "x": [0, 1.0],
+                "y": [0, 1.0],
+                "vx": [0, 1.0],
+                "vy": [0, 1.0],
+            }
         },
-        "vehicles_count": 10,
+        "vehicles_count": 5,
     }
     )
-tile_coder = TileCoder(num_tilings=10, tiles_per_tiling=8, low=0.0, high=1.0)
+tile_coder = TileCoder(num_tilings=40, tiles_per_tiling=35, low=0.0, high=1.0)
 agent = DifferentialSarsaAgent(tile_coder, alpha=0.1, beta=0.01, epsilon=0.05)
+# agent = SemiGradientSarsaAgent(tile_coder, alpha=0.1, gamma=0.99, epsilon=0.1)
 
 # rewards, visits, episode_lengths, trained_agent = train(env, agent, steps=10000)
