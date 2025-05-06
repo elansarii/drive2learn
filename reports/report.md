@@ -33,10 +33,9 @@ We employ the `DiscreteMetaAction` space, which abstracts high-level driving man
 
 ### **Reward Function**
 The reward function is designed to balance the trade-off between maintaining high speed and avoiding collisions. It is defined as:
-$$
-R(s, a) = a \cdot \frac{v - v_{\min}}{v_{\max} - v_{\min}} - b \cdot \text{collision}
 
-$$
+$R(s, a) = a \cdot \frac{v - v_{\min}}{v_{\max} - v_{\min}} - b \cdot \text{collision}$
+
 Where:
 $$
 \begin{aligned}
