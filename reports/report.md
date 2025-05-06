@@ -37,14 +37,14 @@ The reward function is designed to balance the trade-off between maintaining hig
 $R(s, a) = a \cdot \frac{v - v_{\min}}{v_{\max} - v_{\min}} - b \cdot \text{collision}$
 
 Where:
-$$
-\begin{aligned}
-v & : \text{ current speed of the ego-vehicle} \\
-v_{\min}, v_{\max} & : \text{ minimum and maximum speeds for normalization} \\
-\text{collision} & : \text{ binary indicator (1 = collision, 0 = no collision)} \\
-a, b & : \text{ weighting coefficients (speed, safety)}
-\end{aligned}
-$$
+
+| Symbol              | Description                                           |
+|---------------------|-------------------------------------------------------|
+| $v$                 | Current speed of the ego-vehicle                      |
+| $v_{\min}, v_{\max}$| Minimum and maximum speeds for normalization         |
+| $\text{collision}$  | Binary indicator ($1$ = collision, $0$ = no collision)|
+| $a, b$              | Weighting coefficients (speed, safety)                |
+
 
 This formulation encourages the agent to drive at higher speeds while penalizing collisions, promoting efficient and safe driving behavior.
 
