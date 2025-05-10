@@ -95,12 +95,12 @@ To further explore the capability of the tabular method to achieve convergence, 
 
 <table>
 <tr>
-<td><img src="tabular-first.png" width="300"/><br><b>Figure 1a:</b> Tabular Method Initial Results</td>
-<td><img src="functional-first.png" width="300"/><br><b>Figure 1b:</b> Differential SARSA Initial Results</td>
+<td><img src="images/tabular-first.png" width="300"/><br><b>Figure 1a:</b> Tabular Method Initial Results</td>
+<td><img src="images/functional-first.png" width="300"/><br><b>Figure 1b:</b> Differential SARSA Initial Results</td>
 </tr>
 <tr>
-<td><img src="tabular-tuned.png" width="300"/><br><b>Figure 2a:</b> Expected SARSA After Tuning</td>
-<td><img src="functional-tuned.png" width="300"/><br><b>Figure 2b:</b> Differential SARSA After Tuning</td>
+<td><img src="images/tabular-tuned.png" width="300"/><br><b>Figure 2a:</b> Expected SARSA After Tuning</td>
+<td><img src="images/functional-tuned.png" width="300"/><br><b>Figure 2b:</b> Differential SARSA After Tuning</td>
 </tr>
 </table>
 
