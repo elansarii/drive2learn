@@ -135,7 +135,7 @@ The tabular methods, particularly Expected SARSA, showed strong final performanc
 Overall, Expected SARSA with tabular representation proved to be the most stable and reliable algorithm in this project. It provided consistent learning outcomes and superior final rewards, albeit at the cost of higher computational effort and longer training time.
 
 #### **If More Time Were Available**
-If additional time and resources were available, several avenues could be explored to enhance the project:
+If additional time and resources were available, several aspects could be explored to enhance the project:
 
 1. Advanced Function Approximation: We would experiment with deep reinforcement learning methods, such as Deep Q-Networks (DQN) or Actor-Critic architectures. These approaches could better capture the continuous nature of the environment and reduce variance through experience replay and target networks.
 
