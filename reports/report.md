@@ -126,5 +126,20 @@ The results indicate clear differences in the practical performance of the algor
 These findings led us to hypothesize that the primary limitation of Differential SARSA lies in its sensitivity to noise. The `highway-fast-v0` environment is inherently characterized by **stochastic kinematics, multi-agent interactions, and partial observability**, all of which introduce random fluctuations that are amplified by Differential SARSA’s reliance on the average reward update controlled by `beta`. In contrast, Expected SARSA uses expected value estimates rather than sampled next-state actions, resulting in more stable learning and reduced variance. Attempts to switch to semi-gradient SARSA as an alternative also yielded similar high variance and poor performance, further supporting this conclusion.
 
 Overall, **Expected SARSA with tabular methods proved to be the most effective and reliable algorithm** for this environment, demonstrating superior stability and highest final reward performance. While Q-Learning produced comparable returns, its increased noise makes Expected SARSA the preferable choice for applications requiring smooth and stable control policies.
-## Conclusion
+
+## 7. **Conclusion**
+This project successfully demonstrated the application of reinforcement learning to autonomous driving in a simulated multi-lane highway environment using both tabular and function approximation approaches. The experiments highlighted important trade-offs between algorithmic complexity, stability, and performance.
+
+The tabular methods, particularly Expected SARSA, showed strong final performance after extensive tuning, achieving the highest average reward of 20.04. However, the approach required a large number of episodes and suffered from slow convergence due to the discretized and limited representation of the environment. In contrast, function approximation using Differential SARSA exhibited faster initial learning and adaptability to the continuous state space, but its performance was severely limited by instability and high variance, making it less reliable for real-world applications.
+
+Overall, Expected SARSA with tabular representation proved to be the most stable and reliable algorithm in this project. It provided consistent learning outcomes and superior final rewards, albeit at the cost of higher computational effort and longer training time.
+
+#### **If More Time Were Available**
+If additional time and resources were available, several avenues could be explored to enhance the project:
+
+1. Advanced Function Approximation: We would experiment with deep reinforcement learning methods, such as Deep Q-Networks (DQN) or Actor-Critic architectures. These approaches could better capture the continuous nature of the environment and reduce variance through experience replay and target networks.
+
+2. Extended Training Time and Hyperparameter Optimization: More systematic hyperparameter tuning (e.g., using grid search or Bayesian optimization) and longer training durations could help further stabilize and optimize learning outcomes.
+
+3. Multi-Agent and Cooperative Learning: Exploring multi-agent reinforcement learning could provide insights into how multiple autonomous vehicles can learn to coordinate their behavior, opening pathways for realistic deployment scenarios.
 
