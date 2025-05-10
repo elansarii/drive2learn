@@ -61,7 +61,8 @@ In contrast, the functional approximation method leverages the `Kinematics` obse
 - **vx [0, 1]**: Normalized speed of the vehicle along the road (longitudinal speed).
 - **vy [0, 1]**: Normalized speed of the vehicle across lanes (lateral speed).
 
-These features are scaled to [0, 1] to help the agent's model (like a neural network) learn effectively.
+These features are scaled to [0, 1] to help the agent's model learn effectively.
+We also opted to Tile Coding with hashing to hash each state into a specific index. We used hashing since implementing normal Tile Coding with our 25 state components is impossible as it would need 25 dimensions for each tile and as such result in billions of tiles (Number of Tiles increases exponentially with the number of dimensions). By hashing the states into a sufficiently big feature vector (200,000 in our case) we can minimize collisons and at the same time avoid having to create such a large number of tiles. In our implementation we opted to use 16 Tilings in the tile coder and a feature vector size of 200,000.
 
 
 
