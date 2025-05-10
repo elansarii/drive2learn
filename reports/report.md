@@ -125,6 +125,6 @@ The results indicate clear differences in the practical performance of the algor
 
 These findings led us to hypothesize that the primary limitation of Differential SARSA lies in its sensitivity to noise. The `highway-fast-v0` environment is inherently characterized by **stochastic kinematics, multi-agent interactions, and partial observability**, all of which introduce random fluctuations that are amplified by Differential SARSA’s reliance on the average reward update controlled by `beta`. In contrast, Expected SARSA uses expected value estimates rather than sampled next-state actions, resulting in more stable learning and reduced variance. Attempts to switch to semi-gradient SARSA as an alternative also yielded similar high variance and poor performance, further supporting this conclusion.
 
-Overall, **Expected SARSA with function approximation proved to be the most effective and reliable algorithm** for this environment, demonstrating superior stability and highest final reward performance. While Q-Learning produced comparable returns, its increased noise makes Expected SARSA the preferable choice for applications requiring smooth and stable control policies.
+Overall, **Expected SARSA with tabular methods proved to be the most effective and reliable algorithm** for this environment, demonstrating superior stability and highest final reward performance. While Q-Learning produced comparable returns, its increased noise makes Expected SARSA the preferable choice for applications requiring smooth and stable control policies.
 ## Conclusion
 
